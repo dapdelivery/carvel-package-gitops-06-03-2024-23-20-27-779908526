@@ -1,0 +1,33 @@
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: Package
+metadata:
+  name: where-for-dinner-ui.my-apps.tap.20240307085240.0.0+build.6aff574
+spec:
+  refName: where-for-dinner-ui.my-apps.tap
+  version: 20240307085240.0.0+build.6aff574
+  releaseNotes: |
+    Release v20240307085240.0.0+build.6aff574 of package where-for-dinner-ui.my-apps.tap
+  template:
+    spec:
+      fetch:
+      - imgpkgBundle:
+          image: dev.registry.tanzu.vmware.com/tap-ci/ci-pipeline/apps-06-03-2024-23-20-27-779908526/where-for-dinner-ui-my-apps-bundle@sha256:bc7f021a3b97f7ee449c3f644ff9b071b2d2d8758300fb676b08218ad798543c
+      template:
+      - ytt:
+          paths:
+          - .
+      - kbld:
+          paths:
+          - .imgpkg/images.yml
+          - '-'
+      deploy:
+      - kapp: {}
+  valuesSchema:
+    openAPIv3:
+      type: object
+      additionalProperties: false
+      properties:
+        workload_name:
+          type: string
+          default: ""
+
